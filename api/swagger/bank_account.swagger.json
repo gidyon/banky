@@ -1,0 +1,88 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "bank_account.proto",
+    "version": "version not set"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {},
+  "definitions": {
+    "bankAccountType": {
+      "type": "string",
+      "enum": [
+        "UNKNOWN",
+        "SAVINGS_ACCOUNT",
+        "CHECKINGS_ACCOUNT",
+        "RETIREMENT_ACCOUNT"
+      ],
+      "default": "UNKNOWN"
+    },
+    "bankBankAccount": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/bankAccountType"
+        },
+        "name": {
+          "type": "string"
+        },
+        "account_id": {
+          "type": "string"
+        },
+        "bank_id": {
+          "type": "string"
+        },
+        "customer_id": {
+          "type": "string"
+        },
+        "create_time_seconds": {
+          "type": "string",
+          "format": "int64"
+        },
+        "amount": {
+          "type": "number",
+          "format": "float"
+        }
+      },
+      "title": "BankAccount is financial account maintained by a bank"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "runtimeError": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}
