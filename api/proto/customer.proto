@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package bank;
+
+option go_package="customer";
+
+// Customer is an account holder for a bank
+message Customer {
+    string full_names = 1;
+    string customer_id = 2;
+    int64 dob_seconds = 3;
+    repeated string bank_accounts = 4;
+}
+
+message CreateCustomerRequest {
+    Customer customer = 1;
+}
+
+message GetCustomerRequest {
+    string customer_id = 1;
+}
+
+// Manages customers
+service CustomerAPI {
+    // Creates a customer resource
+    rpc CreateCustomer (CreateCustomerRequest) returns (Customer);
+    // Retrives a customer resource
+    rpc GetCustomer (GetCustomerRequest) returns (Customer);
+}

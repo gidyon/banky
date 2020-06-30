@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package bank;
+
+option go_package="account";
+
+enum AccountType {
+    UNKNOWN = 0;
+    SAVINGS_ACCOUNT = 1;
+    CHECKINGS_ACCOUNT = 2;
+    RETIREMENT_ACCOUNT = 3;
+}
+
+// BankAccount is financial account maintained by a bank
+message BankAccount {
+    AccountType type = 1;
+    string name = 2;
+    string account_id = 3;
+    string bank_id = 4;
+    string customer_id = 5;
+    int64 create_time_seconds = 6;
+    float amount = 7;
+}
+
+message CreateBankAccountRequest {
+    BankAccount bank_account = 1;
+}
+
+message GetBankAccountRequest {
+    string account_id = 1;
+}
+
+// Manages bank accounts
+service BankAccountAPI {
+    // Creates a bank account
+    rpc CreateBankAccount (CreateBankAccountRequest) returns (BankAccount);
+    // Fetches a bank account
+    rpc GetBankAccount (GetBankAccountRequest) returns (BankAccount);
+}

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package bank;
+
+option go_package="bank";
+
+// Bank is a financial institution that accepts deposits and recurring accounts from the customers
+message Bank {
+    string name = 1;
+    string bank_id = 2;
+    string address = 3;
+}
+
+message CreateBankRequest {
+    Bank bank = 1;
+}
+
+message GetBankRequest {
+    string bank_id = 1;
+}
+
+// Manages banks
+service BankAPI {
+    // Creates a bank resource
+    rpc CreateBank (CreateBankRequest) returns (Bank);
+    // Fetches a bank resource
+    rpc GetBank (GetBankRequest) returns (Bank);
+}
