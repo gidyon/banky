@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  mysqldb:
+    image: mysql:8.0.18
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - databases
+    volumes:
+      - ./.storage:/var/lib/mysql
+    environment:
+      MYSQL_HOST: localhost
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: hakty11
+      MYSQL_DATABASE: banky
+  
+  redis:
+    container_name: redis
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - databases
+
+networks:
+  databases:
+    external: true
