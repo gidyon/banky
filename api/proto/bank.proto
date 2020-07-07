@@ -4,6 +4,11 @@ package bank;
 
 option go_package="bank";
 
+import "google/api/field_behaviour.proto";
+import "google/api/annotations.proto";
+import "google/api/resource.proto";
+import "google/api/client.proto";
+
 // Bank is a financial institution that accepts deposits and recurring accounts from the customers
 message Bank {
     string name = 1;
@@ -12,17 +17,29 @@ message Bank {
 }
 
 message CreateBankRequest {
-    Bank bank = 1;
+    Bank bank = 1 [(google.api.field_behavior) = REQUIRED];
 }
 
 message GetBankRequest {
-    string bank_id = 1;
+    string bank_id = 1 [(google.api.field_behavior) = REQUIRED];;
 }
 
 // Manages banks
 service BankAPI {
     // Creates a bank resource
-    rpc CreateBank (CreateBankRequest) returns (Bank);
+    rpc CreateBank (CreateBankRequest) returns (Bank) {
+        option (google.api.http) = {
+            post: "/api/v1/banks"
+            body: "*"
+        };
+        option (google.api.method_signature) = "bank";
+    };
+
     // Fetches a bank resource
-    rpc GetBank (GetBankRequest) returns (Bank);
+    rpc GetBank (GetBankRequest) returns (Bank) {
+        option (google.api.http) = {
+            get: "/api/v1/banks/{bank_id}"
+        };
+        option (google.api.method_signature) = "bank_id";
+    };
 }
