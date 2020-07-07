@@ -29,3 +29,5 @@ protoc_customer:
 	@protoc -I=$(API_IN_PATH) -I=third_party --grpc-gateway_out=logtostderr=true:$(API_OUT_PATH)/customer customer.proto
 	@protoc -I=$(API_IN_PATH) -I=third_party --swagger_out=logtostderr=true:$(API_DOC_PATH) customer.proto
 	
+run_bank:
+	@cd cmd/bank && go run ./main.go --config-file=./config.yml
