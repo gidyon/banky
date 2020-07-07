@@ -10,7 +10,72 @@
   "produces": [
     "application/json"
   ],
-  "paths": {},
+  "paths": {
+    "/api/v1/banks": {
+      "post": {
+        "summary": "Creates a bank resource",
+        "operationId": "BankAPI_CreateBank",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/bankBank"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/bankCreateBankRequest"
+            }
+          }
+        ],
+        "tags": [
+          "BankAPI"
+        ]
+      }
+    },
+    "/api/v1/banks/{bank_id}": {
+      "get": {
+        "summary": "Fetches a bank resource",
+        "operationId": "BankAPI_GetBank",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/bankBank"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "bank_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "BankAPI"
+        ]
+      }
+    }
+  },
   "definitions": {
     "bankBank": {
       "type": "object",
@@ -26,6 +91,14 @@
         }
       },
       "title": "Bank is a financial institution that accepts deposits and recurring accounts from the customers"
+    },
+    "bankCreateBankRequest": {
+      "type": "object",
+      "properties": {
+        "bank": {
+          "$ref": "#/definitions/bankBank"
+        }
+      }
     },
     "protobufAny": {
       "type": "object",
