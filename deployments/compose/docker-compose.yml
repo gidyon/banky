@@ -9,7 +9,7 @@ services:
     networks:
       - databases
     volumes:
-      - ./.storage:/var/lib/mysql
+      - ./storage:/var/lib/mysql
     environment:
       MYSQL_HOST: localhost
       MYSQL_USER: root
